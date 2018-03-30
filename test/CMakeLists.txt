@@ -12,7 +12,7 @@ set(PROJECT_NAME UnitTest)
 # main project
 project(${PROJECT_NAME} CXX)
 
-# fefinition of macros
+# definition of macros
 add_definitions(
    -D_DEBUG 
    -DUNICODE

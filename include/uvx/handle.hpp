@@ -9,16 +9,16 @@ template <typename Handle>
 class handle {
 protected:
     handle()
-		: handle_(std::make_unique<Handle>()), 
+        : handle_(std::make_unique<Handle>()), 
           callback_(std::make_unique<callbacks>()) {
-		uv_handle_set_data(get<uv_handle_t>(), reinterpret_cast<void*>(callback_.get()));
+        uv_handle_set_data(get<uv_handle_t>(), reinterpret_cast<void*>(callback_.get()));
     }
 
     handle(const handle&) = delete;
     handle& operator=(const handle&) = delete;
 
     handle(handle&& other) noexcept
-		: handle_(std::move(other.handle_)),
+        : handle_(std::move(other.handle_)),
           callback_(std::move(other.callback_)) {}
 
     handle& operator=(handle&& other) {
@@ -26,7 +26,7 @@ protected:
             close();
             handle_ = std::move(other.handle_);
             callback_ = std::move(other.callback_);
-		}
+        }
         return *this;
     }
 
@@ -68,11 +68,11 @@ public:
 
     void close(Callback callback = [] {}) {
         if (is_closing()) {
-			return;
-		}
+            return;
+        }
 
         callbacks::store<internal::cid_close>(handle_->data, std::move(callback));
-		uv_close(get<uv_handle_t>(), [](uv_handle_t* h) {
+        uv_close(get<uv_handle_t>(), [](uv_handle_t* h) {
             std::unique_ptr<Handle> handle_holder(reinterpret_cast<Handle*>(h));
             std::unique_ptr<callbacks> callback_holder(reinterpret_cast<callbacks*>(h->data));
             callbacks::invoke<internal::cid_close>(h->data);
@@ -85,7 +85,7 @@ public:
     }
 
 private:
-	std::unique_ptr<callbacks> callback_;
+    std::unique_ptr<callbacks> callback_;
     std::unique_ptr<Handle> handle_;
 };
 

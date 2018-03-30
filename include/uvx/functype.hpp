@@ -10,7 +10,7 @@ struct traits : public traits<decltype(&T::operator())> {};
 
 template <typename R, typename... A>
 struct traits<R(A...)> {
-	typedef R result_type;
+    typedef R result_type;
     typedef std::tuple<A...> argument_tuple;
 };
 

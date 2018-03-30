@@ -84,11 +84,11 @@ public:
                 buf->len = suggested_size;
             },
             [](uv_udp_t* h, ssize_t nread, const uv_buf_t* buf, const struct sockaddr* addr, unsigned flags) {
-				std::shared_ptr<char> holder(buf->base, std::default_delete<char[]>());
+                std::shared_ptr<char> holder(buf->base, std::default_delete<char[]>());
                 // nread < 0 means error, nread == 0 means nothing to read or receive an empty packet
                 // ignore error and nothing to read
                 if (nread >= 0 && addr) {
-					std::string ip; int port;
+                    std::string ip; int port;
                     if (addr->sa_family == AF_INET) {
                         from_ip4_addr(reinterpret_cast<const ip4_addr*>(addr), ip, port);
                     } else if (addr->sa_family == AF_INET6) {

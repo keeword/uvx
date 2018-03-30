@@ -10,27 +10,27 @@ template <typename Request>
 class request {
 protected:
     request()
-		: request_(std::make_unique<Request>()),
-		  callback_(std::make_unique<callbacks>()) {
-		uv_req_set_data(get<uv_req_t>(), reinterpret_cast<void*>(callback_.get()));
+        : request_(std::make_unique<Request>()),
+          callback_(std::make_unique<callbacks>()) {
+        uv_req_set_data(get<uv_req_t>(), reinterpret_cast<void*>(callback_.get()));
     }
 
     request(const request&) = delete;
     request& operator=(const request&) = delete;
 
     request(request&& other)
-		: request_(std::move(other.request_)),
-	      callback_(std::move(other.callback_)) {}
+        : request_(std::move(other.request_)),
+          callback_(std::move(other.callback_)) {}
 
     request& operator=(request&& other) {
         if (this != &other) {
-			request_ = std::move(other.request_);
-			callback_ = std::move(other.callback_);
-		}
+            request_ = std::move(other.request_);
+            callback_ = std::move(other.callback_);
+        }
         return *this;
     }
 
-	~request() {}
+    ~request() {}
 
     template <typename T=Request>
     T* get() {
@@ -55,7 +55,7 @@ public:
 
 private:
     std::unique_ptr<Request> request_;
-	std::unique_ptr<callbacks> callback_;
+    std::unique_ptr<callbacks> callback_;
 };
 
 } // namespace

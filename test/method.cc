@@ -4,14 +4,14 @@
 namespace {
 
 struct CanNotCopy {
-	CanNotCopy() {}
-	~CanNotCopy() {}
+    CanNotCopy() {}
+    ~CanNotCopy() {}
 
-	CanNotCopy(const CanNotCopy&) { ADD_FAILURE() << "no copy constructor"; }
-	CanNotCopy& operator=(const CanNotCopy&) { ADD_FAILURE() << "no copy assigment"; }
+    CanNotCopy(const CanNotCopy&) { ADD_FAILURE() << "no copy constructor"; }
+    CanNotCopy& operator=(const CanNotCopy&) { ADD_FAILURE() << "no copy assigment"; }
 
-	CanNotCopy(CanNotCopy&&) {}
-	CanNotCopy& operator=(CanNotCopy&&) {}
+    CanNotCopy(CanNotCopy&&) {}
+    CanNotCopy& operator=(CanNotCopy&&) {}
 };
 
 // normal use case
